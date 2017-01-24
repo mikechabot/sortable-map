@@ -1,3 +1,1 @@
-'use strict';
-
-const SortableMap = require('./src');
+module.exports = require('./src');

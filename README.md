@@ -3,4 +3,5 @@ Dictionary data structure with flexible sort capabilities
 
 [![Build Status](https://travis-ci.org/mikechabot/sortable-map.svg?branch=master)](https://travis-ci.org/mikechabot/sortable-map)
 [![Dependency Status](https://david-dm.org/mikechabot/sortable-map.svg)](https://david-dm.org/mikechabot/sortable-map)
+[![Dev Dependency Status](https://david-dm.org/mikechabot/rsortable-map/dev-status.svg)](https://david-dm.org/mikechabot/sortable-map?type=dev)
 [![Coverage Status](https://coveralls.io/repos/github/mikechabot/sortable-map/badge.svg?branch=master)](https://coveralls.io/github/mikechabot/sortable-map?branch=master)

@@ -1,5 +1,13 @@
 'use strict';
 
+/**
+ * Dictionary data structure with flexible sort capabilities
+ *  - https://github.com/mikechabot/sortable-map
+ *  - https://www.npmjs.com/package/sortable-map
+ * @author Mike Chabot
+ * @param sortProperty
+ * @constructor
+ */
 function SortableMap (sortProperty) {
     this.store = [];
     this.sortProperty = null;
@@ -22,6 +30,11 @@ SortableMap.prototype.add = function (key, value) {
     this.store[key] = value;
 };
 
+/**
+ * Determine whether a key exists in the store
+ * @param key
+ * @returns {boolean}
+ */
 SortableMap.prototype.has = function (key) {
     if (!key) return false;
     if (typeof key !== 'string') return false;

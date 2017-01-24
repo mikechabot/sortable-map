@@ -1,3 +1,4 @@
+
 function SortableMap (sortProperty) {
     this.store = [];
     this.sortProperty = null;
@@ -9,18 +10,51 @@ function SortableMap (sortProperty) {
     }
 }
 
+/**
+ * Add an entry to the store
+ * @param key
+ * @param value
+ */
 SortableMap.prototype.add = function (key, value) {
     if (!key) throw new Error('key is required');
     if (typeof key !== 'string') throw new Error('key must be a String');
     this.store[key] = value;
 };
 
+/**
+ * Find a single entry in the store
+ * @param key
+ * @returns {*}
+ */
 SortableMap.prototype.find = function (key) {
     if (!key) return;
     if (typeof key !== 'string') return;
     return this.store[key];
 };
 
+/**
+ * Get all entries in the store
+ * @returns {*}
+ */
+SortableMap.prototype.findAll = function () {
+    const sorted = [];
+    if (!this.sortProperty) {
+        this.__forEachSortedKey(key => {
+            sorted.push({key, value: this.store[key] });
+        });
+        return sorted;
+    }
+    this.__forEachKey(key => {
+        sorted.push({key, value: this.store[key] });
+    });
+    return sorted.sort((a, b) => a.value[this.sortProperty] - b.value[this.sortProperty]);
+};
+
+/**
+ * Delete an entry from the store
+ * @param key
+ * @returns {*}
+ */
 SortableMap.prototype.delete = function (key) {
     if (!key) return;
     if (typeof key !== 'string') return;
@@ -29,18 +63,57 @@ SortableMap.prototype.delete = function (key) {
     return temp;
 };
 
+/**
+ * Return the number of entries in the store
+ * @returns {number}
+ */
 SortableMap.prototype.count = function () {
     let count = 0;
-    Object.keys(this.store).forEach(() => {
-        count++;
-    });
+    this.__forEachKey(() => { count++; });
     return count;
 };
 
+/**
+ * Clear the store
+ */
 SortableMap.prototype.clear = function () {
-    Object.keys(this.store).forEach((key) => {
-        delete this.store[key];
-    });
+    this.__forEachKey((key) => { delete this.store[key]; });
+};
+
+/**
+ * Get store keys
+ * @returns {Array}
+ * @private
+ */
+SortableMap.prototype.__keys = function() {
+    return Object.keys(this.store);
+};
+
+/**
+ * For each store key
+ * @param callback
+ * @private
+ */
+SortableMap.prototype.__forEachKey = function(callback) {
+    this.__keys().forEach(callback);
+};
+
+/**
+ * Get sorted store keys
+ * @returns {Array.<*>}
+ * @private
+ */
+SortableMap.prototype.__sortedKeys = function() {
+    return this.__keys().sort();
+};
+
+/**
+ * For each sorted store key
+ * @param callback
+ * @private
+ */
+SortableMap.prototype.__forEachSortedKey = function(callback) {
+    this.__sortedKeys().forEach(callback);
 };
 
 module.exports = SortableMap;

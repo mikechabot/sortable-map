@@ -7,29 +7,13 @@ const falsyValues = [ false, null, undefined, 0, NaN, '', '' ];
 const nonStrings = [ false, null, undefined, 123, Math.PI, NaN, {}, [], () => {} ];
 const testObjects = { obj: {}, str: 'bar', num: Math.PI, func: () => {} };
 
-describe('Dictionary', () => {
-
+describe('SortableMap', () => {
     let map;
     beforeEach(() => {
         map = new SortableMap();
     });
 
     describe('constructor with no arguments', () => {
-        it('Should have an add function', () => {
-            expect(map.add).to.be.a('function');
-        });
-        it('Should have a find function', () => {
-            expect(map.find).to.be.a('function');
-        });
-        it('Should have a delete function', () => {
-            expect(map.delete).to.be.a('function');
-        });
-        it('Should have a count function', () => {
-            expect(map.count).to.be.a('function');
-        });
-        it('Should have a clear function', () => {
-            expect(map.clear).to.be.a('function');
-        });
         it('Should have a store property', () => {
             expect(map.hasOwnProperty('store')).to.equal(true);
         });
@@ -52,27 +36,11 @@ describe('Dictionary', () => {
             });
         });
         describe('Valid Parameters', () => {
-
             let map;
             beforeEach(() => {
                 map = new SortableMap('foo');
             });
 
-            it('Should have an add function', () => {
-                expect(map.add).to.be.a('function');
-            });
-            it('Should have a find function', () => {
-                expect(map.find).to.be.a('function');
-            });
-            it('Should have a delete function', () => {
-                expect(map.delete).to.be.a('function');
-            });
-            it('Should have a count function', () => {
-                expect(map.count).to.be.a('function');
-            });
-            it('Should have a clear function', () => {
-                expect(map.clear).to.be.a('function');
-            });
             it('Should have a store property', () => {
                 expect(map.hasOwnProperty('store')).to.equal(true);
             });
@@ -145,6 +113,47 @@ describe('Dictionary', () => {
             for (let prop in testObjects) {
                 expect(map.find(prop)).to.equal(testObjects[prop]);
             }
+        });
+    });
+    describe('findAll', () => {
+        it('Should return an empty array if the store is empty', () => {
+            expect(map.findAll()).to.be.a('array');
+            expect(map.findAll()).to.be.empty;
+        });
+        describe('no sortProperty', () => {
+            it('Should return an array of store objects sorted by key', () => {
+                const expectedObjects = [];
+                Object.keys(testObjects).sort().forEach(key => {
+                    expectedObjects.push({ key, value: testObjects[key] });
+                });
+                for (let prop in testObjects) {
+                    map.store[prop] = testObjects[prop];
+                }
+                expect(map.findAll()).to.eql(expectedObjects);
+            });
+        });
+        describe('with sortProperty', () => {
+
+            let map;
+            let sortProperty;
+            beforeEach(() => {
+                sortProperty = 'foo';
+                map = new SortableMap(sortProperty);
+            });
+            it('Should return an empty array if the store is empty', () => {
+                expect(map.findAll()).to.eql([]);
+            });
+            it('Should return an array of store object sorted by sortProperty', () => {
+                map.store['baz'] = { [sortProperty]: 3 };
+                map.store['foo'] = { [sortProperty]: 1 };
+                map.store['bar'] = { [sortProperty]: 2 };
+                const expectedList = [
+                    { key: 'foo', value: { [sortProperty]: 1 }},
+                    { key: 'bar', value: { [sortProperty]: 2 }},
+                    { key: 'baz', value: { [sortProperty]: 3 }},
+                ];
+                expect(map.findAll()).to.eql(expectedList);
+            });
         });
     });
     describe('delete', () => {

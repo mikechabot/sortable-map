@@ -1,0 +1,32 @@
+{
+  "name": "sortable-map",
+  "version": "0.0.1",
+  "description": "Dictionary data structure with flexible sort capabilities",
+  "scripts": {
+    "test": "mocha \"test/unit/**/*.js\"",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha \"test/unit/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikechabot/sortable-map.git"
+  },
+  "keywords": [
+    "javascript",
+    "dictionary",
+    "sortable",
+    "map",
+    "sortable",
+    "map"
+  ],
+  "author": "Mike Chabot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikechabot/sortable-map/issues"
+  },
+  "homepage": "https://github.com/mikechabot/sortable-map#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0"
+  }
+}

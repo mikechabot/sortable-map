@@ -22,6 +22,12 @@ SortableMap.prototype.add = function (key, value) {
     this.store[key] = value;
 };
 
+SortableMap.prototype.has = function (key) {
+    if (!key) return false;
+    if (typeof key !== 'string') return false;
+    return this.__keys().indexOf(key) !== -1;
+};
+
 /**
  * Find a single entry in the store
  * @param key

@@ -90,8 +90,33 @@ describe('SortableMap', () => {
             }
         });
     });
+    describe('has', () => {
+        it('Should return false if no key is falsy', () => {
+            falsyValues.forEach(falsy => {
+                expect(map.has(falsy)).to.equal(false);
+            });
+        });
+        it('Should return false if key is not a String', () => {
+            nonStrings.forEach(nonString => {
+                expect(map.has(nonString)).to.equal(false);
+            });
+        });
+        it('Should return false if the key does not exist', () => {
+            for (let prop in testObjects) {
+                expect(map.has(prop)).to.equal(false);
+            }
+        });
+        it('Should return true if the store contains the key', () => {
+            for (let prop in testObjects) {
+                map.store[prop] = testObjects[prop];
+            }
+            for (let prop in testObjects) {
+                expect(map.has(prop)).to.equal(true);
+            }
+        });
+    });
     describe('find', () => {
-        it('Should return undefined if no key is provided', () => {
+        it('Should return undefined if key is falsy', () => {
             falsyValues.forEach(falsy => {
                 expect(map.find(falsy)).to.equal(undefined);
             });

@@ -1,3 +1,4 @@
+'use strict';
 
 function SortableMap (sortProperty) {
     this.store = [];

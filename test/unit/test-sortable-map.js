@@ -91,7 +91,7 @@ describe('SortableMap', () => {
         });
     });
     describe('has', () => {
-        it('Should return false if no key is falsy', () => {
+        it('Should return false if key is falsy', () => {
             falsyValues.forEach(falsy => {
                 expect(map.has(falsy)).to.equal(false);
             });

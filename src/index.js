@@ -5,18 +5,10 @@
  *  - https://github.com/mikechabot/sortable-map
  *  - https://www.npmjs.com/package/sortable-map
  * @author Mike Chabot
- * @param sortProperty
  * @constructor
  */
-function SortableMap (sortProperty) {
+function SortableMap () {
     this.store = [];
-    this.sortProperty = null;
-
-    if (sortProperty !== null && sortProperty !== undefined) {
-        if (typeof sortProperty !== 'string') throw new Error('sortProperty must be a String literal');
-        if (sortProperty.length === 0) throw new Error('sortProperty cannot be an empty String');
-        this.sortProperty = sortProperty;
-    }
 }
 
 /**
@@ -56,15 +48,16 @@ SortableMap.prototype.find = function (key) {
  * Get all entries in the store
  * @returns {*}
  */
-SortableMap.prototype.findAll = function () {
+SortableMap.prototype.findAll = function (sortProperty) {
     let sorted = [];
-    if (!this.sortProperty) {
+    if (!sortProperty) {
         this.keys().sort().forEach(key => {
             sorted.push({ key, value: this.store[key] });
         });
     } else {
+        if (typeof sortProperty !== 'string') throw new Error('sortProperty must be a String literal');
         sorted = this.__toKeyValue();
-        sorted.sort((a, b) => a.value[this.sortProperty] - b.value[this.sortProperty]);
+        sorted.sort((a, b) => a.value[sortProperty] - b.value[sortProperty]);
     }
     return sorted;
 };

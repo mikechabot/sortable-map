@@ -21,40 +21,6 @@ describe('SortableMap', () => {
             expect(map.store).to.be.a('array');
             expect(map.store).to.empty;
         });
-        it('Should have a sortProperty property', () => {
-            expect(map.hasOwnProperty('sortProperty')).to.equal(true);
-        });
-    });
-    describe('constructor with arguments', () => {
-        describe('Invalid Parameters', () => {
-            it('Should throw an error if sortProperty is falsy', () => {
-                falsyValues.forEach(falsy => {
-                    if (falsy !== null && falsy !== undefined) {
-                        expect(() => { new SortableMap(falsy) }).to.throw(/sortProperty (must be a String literal|cannot be an empty String)$/);
-                    }
-                });
-            });
-        });
-        describe('Valid Parameters', () => {
-            let map;
-            beforeEach(() => {
-                map = new SortableMap('foo');
-            });
-
-            it('Should have a store property', () => {
-                expect(map.hasOwnProperty('store')).to.equal(true);
-            });
-            it('Should create store as an empty Array', () => {
-                expect(map.store).to.be.a('array');
-                expect(map.store).to.empty;
-            });
-            it('Should have a sortProperty property', () => {
-                expect(map.hasOwnProperty('sortProperty')).to.equal(true);
-            });
-            it('Should have a sortProperty property', () => {
-                expect(map.sortProperty).to.equal('foo');
-            });
-        });
     });
     describe('add', () => {
         it('Should throw an error if the key is falsy', () => {
@@ -141,20 +107,30 @@ describe('SortableMap', () => {
         });
     });
     describe('findAll', () => {
-        it('Should return an empty array if the store is empty', () => {
-            expect(map.findAll()).to.be.a('array');
-            expect(map.findAll()).to.be.empty;
+        describe('Invalid Parameters', () => {
+            it('Should throw an error if sortProperty is a non-String', () => {
+                expect(() => { map.findAll(Math.PI); }).to.throw(/sortProperty (must be a String literal|cannot be an empty String)$/);
+                expect(() => { map.findAll({}); }).to.throw(/sortProperty (must be a String literal|cannot be an empty String)$/);
+                expect(() => { map.findAll([]); }).to.throw(/sortProperty (must be a String literal|cannot be an empty String)$/);
+                expect(() => { map.findAll(true); }).to.throw(/sortProperty (must be a String literal|cannot be an empty String)$/);
+            });
         });
-        describe('no sortProperty', () => {
-            it('Should return an array of store objects sorted by key', () => {
-                const expectedObjects = [];
-                Object.keys(testObjects).sort().forEach(key => {
-                    expectedObjects.push({ key, value: testObjects[key] });
+        describe('Valid Parameters', () => {
+            it('Should return an empty array if the store is empty', () => {
+                expect(map.findAll()).to.be.a('array');
+                expect(map.findAll()).to.be.empty;
+            });
+            describe('no sortProperty', () => {
+                it('Should return an array of store objects sorted by key', () => {
+                    const expectedObjects = [];
+                    Object.keys(testObjects).sort().forEach(key => {
+                        expectedObjects.push({ key, value: testObjects[key] });
+                    });
+                    for (let prop in testObjects) {
+                        map.store[prop] = testObjects[prop];
+                    }
+                    expect(map.findAll()).to.eql(expectedObjects);
                 });
-                for (let prop in testObjects) {
-                    map.store[prop] = testObjects[prop];
-                }
-                expect(map.findAll()).to.eql(expectedObjects);
             });
         });
         describe('with sortProperty', () => {
@@ -162,7 +138,7 @@ describe('SortableMap', () => {
             let sortProperty;
             beforeEach(() => {
                 sortProperty = 'foo';
-                map = new SortableMap(sortProperty);
+                map = new SortableMap();
             });
             it('Should return an empty array if the store is empty', () => {
                 expect(map.findAll()).to.eql([]);
@@ -172,11 +148,11 @@ describe('SortableMap', () => {
                 map.store['foo'] = { [sortProperty]: 1 };
                 map.store['bar'] = { [sortProperty]: 2 };
                 const expectedList = [
-                    { key: 'foo', value: { [sortProperty]: 1 }},
-                    { key: 'bar', value: { [sortProperty]: 2 }},
-                    { key: 'baz', value: { [sortProperty]: 3 }},
+                    { key: 'foo', value: { [sortProperty]: 1 } },
+                    { key: 'bar', value: { [sortProperty]: 2 } },
+                    { key: 'baz', value: { [sortProperty]: 3 } }
                 ];
-                expect(map.findAll()).to.eql(expectedList);
+                expect(map.findAll(sortProperty)).to.eql(expectedList);
             });
         });
     });

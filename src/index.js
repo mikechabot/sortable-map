@@ -1,5 +1,9 @@
 'use strict';
 
+const PROP_TYPES = [
+    'string', 'number', 'date'
+];
+
 /**
  * Dictionary data structure with flexible sort capabilities
  *  - https://github.com/mikechabot/sortable-map
@@ -48,18 +52,23 @@ SortableMap.prototype.find = function (key) {
  * Get all entries in the store
  * @returns {*}
  */
-SortableMap.prototype.findAll = function (sortProperty) {
-    let sorted = [];
+SortableMap.prototype.findAll = function (sortProperty, propertyType) {
+    let list = [];
     if (!sortProperty) {
         this.keys().sort().forEach(key => {
-            sorted.push({ key, value: this.store[key] });
+            list.push({ key, value: this.store[key] });
         });
     } else {
+        propertyType = propertyType || 'string';
         if (typeof sortProperty !== 'string') throw new Error('sortProperty must be a String literal');
-        sorted = this.__toKeyValue();
-        sorted.sort((a, b) => a.value[sortProperty] - b.value[sortProperty]);
+        if (PROP_TYPES.indexOf(propertyType) === -1) throw new Error('propertyType not allowed. Allowed types: number, date');
+
+        list = this.__toKeyValue();
+        propertyType !== 'string'
+            ? list.sort((a, b) => a.value[sortProperty] - b.value[sortProperty])
+            : list.sort((a, b) => (a.value[sortProperty] > b.value[sortProperty]) ? 1 : ((b.value[sortProperty] > a.value[sortProperty]) ? -1 : 0));
     }
-    return sorted;
+    return list;
 };
 
 /**

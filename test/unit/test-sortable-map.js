@@ -143,7 +143,7 @@ describe('SortableMap', () => {
             it('Should return an empty array if the store is empty', () => {
                 expect(map.findAll()).to.eql([]);
             });
-            it('Should return an array of store object sorted by sortProperty', () => {
+            it('Should return an array of store object sorted by sortProperty (number type)', () => {
                 map.store['baz'] = { [sortProperty]: 3 };
                 map.store['foo'] = { [sortProperty]: 1 };
                 map.store['bar'] = { [sortProperty]: 2 };
@@ -152,7 +152,29 @@ describe('SortableMap', () => {
                     { key: 'bar', value: { [sortProperty]: 2 } },
                     { key: 'baz', value: { [sortProperty]: 3 } }
                 ];
-                expect(map.findAll(sortProperty)).to.eql(expectedList);
+                expect(map.findAll(sortProperty, 'number')).to.eql(expectedList);
+            });
+            it('Should return an array of store object sorted by sortProperty (string type)', () => {
+                map.store['baz'] = { [sortProperty]: 'z' };
+                map.store['foo'] = { [sortProperty]: 'h' };
+                map.store['bar'] = { [sortProperty]: 'b' };
+                const expectedList = [
+                    { key: 'bar', value: { [sortProperty]: 'b' } },
+                    { key: 'foo', value: { [sortProperty]: 'h' } },
+                    { key: 'baz', value: { [sortProperty]: 'z' } }
+                ];
+                expect(map.findAll(sortProperty, 'string')).to.eql(expectedList);
+            });
+            it('Should return an array of store object sorted by sortProperty (date type)', () => {
+                map.store['baz'] = { [sortProperty]: new Date(2017, 10, 30) };
+                map.store['foo'] = { [sortProperty]: new Date(2011, 8, 28) };
+                map.store['bar'] = { [sortProperty]: new Date(2003, 7, 4) };
+                const expectedList = [
+                    { key: 'bar', value: { [sortProperty]: new Date(2003, 7, 4) } },
+                    { key: 'foo', value: { [sortProperty]: new Date(2011, 8, 28) } },
+                    { key: 'baz', value: { [sortProperty]: new Date(2017, 10, 30) } }
+                ];
+                expect(map.findAll(sortProperty, 'date')).to.eql(expectedList);
             });
         });
     });

@@ -158,7 +158,6 @@ describe('SortableMap', () => {
             });
         });
         describe('with sortProperty', () => {
-
             let map;
             let sortProperty;
             beforeEach(() => {
@@ -238,6 +237,28 @@ describe('SortableMap', () => {
                 delete map.store[prop];
             }
             expect(map.count()).to.equal(expectedCount);
+        });
+    });
+    describe('forEach', () => {
+        it('Should should iterate over the store with an object containing key and value', () => {
+            map.store['foo'] = 'bar';
+            map.store['baz'] = Math.PI;
+            map.forEach((entry, index) => {
+                if (index === 0) {
+                    expect(entry.key).equal('foo');
+                    expect(entry.value).equal('bar');
+                } else {
+                    expect(entry.key).equal('baz');
+                    expect(entry.value).equal(Math.PI);
+                }
+            });
+        });
+    });
+    describe('values', () => {
+        it('Should returns only the values in the store', () => {
+            map.store['foo'] = 'bar';
+            map.store['baz'] = Math.PI;
+            expect(map.values()).to.eql(['bar', Math.PI]);
         });
     });
     describe('clear', () => {

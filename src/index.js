@@ -121,11 +121,19 @@ SortableMap.prototype.values = function () {
 };
 
 /**
+ * For each store value
+ * @param callback
+ */
+SortableMap.prototype.forEachValue = function (callback) {
+    return this.values().forEach(callback);
+};
+
+/**
  * For each store key
  * @param callback
  */
 SortableMap.prototype.forEachKey = function (callback) {
-    this.keys().forEach(callback);
+    return this.keys().forEach(callback);
 };
 
 /**

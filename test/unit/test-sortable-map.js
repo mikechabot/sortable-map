@@ -245,6 +245,17 @@ describe('SortableMap', () => {
             expect(map.count()).to.equal(expectedCount);
         });
     });
+    describe('isEmpty', () => {
+        it('Should return true if the store is empty', () => {
+            expect(map.isEmpty()).to.equal(true);
+        });
+        it('Should return the number of objects in the store', () => {
+            for (let prop in testObjects) {
+                map.store[prop] = testObjects[prop];
+            }
+            expect(map.isEmpty()).to.equal(false);
+        });
+    });
     describe('forEach', () => {
         it('Should should iterate over the store with an object containing key and value', () => {
             map.store['foo'] = 'bar';

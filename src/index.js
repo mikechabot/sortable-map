@@ -86,6 +86,14 @@ SortableMap.prototype.count = function () {
 };
 
 /**
+ * Determine whether the store is empty
+ * @returns {boolean}
+ */
+SortableMap.prototype.isEmpty = function () {
+    return this.count() === 0;
+};
+
+/**
  * Clear the store
  */
 SortableMap.prototype.clear = function () {

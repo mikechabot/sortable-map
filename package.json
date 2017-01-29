@@ -1,6 +1,6 @@
 {
   "name": "sortable-map",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Dictionary data structure with flexible sort capabilities",
   "scripts": {
     "build": "babel src --out-dir lib",

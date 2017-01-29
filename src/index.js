@@ -90,7 +90,7 @@ SortableMap.prototype.count = function () {
  * @returns {boolean}
  */
 SortableMap.prototype.isEmpty = function () {
-    return this.count() === 0;
+    return this.keys().length === 0;
 };
 
 /**

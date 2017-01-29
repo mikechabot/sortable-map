@@ -257,7 +257,7 @@ describe('SortableMap', () => {
         });
     });
     describe('forEach', () => {
-        it('Should should iterate over the store with an object containing key and value', () => {
+        it('Should should iterate over the store; iteratee is [key:value] for each store entry', () => {
             map.store['foo'] = 'bar';
             map.store['baz'] = Math.PI;
             map.forEach((entry, index) => {
@@ -267,6 +267,19 @@ describe('SortableMap', () => {
                 } else {
                     expect(entry.key).equal('baz');
                     expect(entry.value).equal(Math.PI);
+                }
+            });
+        });
+    });
+    describe('forEachValue', () => {
+        it('Should should iterate over the store; iteratee is [value] for each store entry', () => {
+            map.store['foo'] = 'bar';
+            map.store['baz'] = Math.PI;
+            map.forEachValue((entry, index) => {
+                if (index === 0) {
+                    expect(entry).equal('bar');
+                } else {
+                    expect(entry).equal(Math.PI);
                 }
             });
         });

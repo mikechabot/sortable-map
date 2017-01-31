@@ -56,8 +56,8 @@ Dictionary data structure with flexible sort capabilities
     map.add('xyz', { sortOrder: 0 });
     map.add('nop', { sortOrder: 10 });
     
-    map.findAll()               // [{key: 'abc', value: { sortOrder: 20 }, ...];
-    map.findAll('sortOrder')    // [{key: 'xyz', value: { sortOrder: 0 }, ...];
+    map.findAll();              // [{key: 'abc', value: { sortOrder: 20 }, ...];
+    map.findAll('sortOrder');   // [{key: 'xyz', value: { sortOrder: 0 }, ...];
 
 ## <a name="sortable-map#iterators">Iterators</a>
 

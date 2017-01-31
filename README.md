@@ -77,7 +77,7 @@ Dictionary data structure with flexible sort capabilities
         key;             // 'foo'
     ));
 
-### `forEachKey(cb)`
+### `forEachValue(cb)`
 
     map.forEachValue(value => {
         value;           // 'bar'

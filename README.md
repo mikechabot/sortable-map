@@ -10,8 +10,9 @@ Dictionary data structure with flexible sort capabilities
 ## Installation
 `npm i -S sortable-map`
 
-`import SortableMap from 'sortable-map';`
-`const SortableMap = require('sortable-map');`
+#### Usage
+* `import SortableMap from 'sortable-map';`
+* `const SortableMap = require('sortable-map');`
 
 
 ## Example

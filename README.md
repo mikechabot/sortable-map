@@ -50,7 +50,7 @@ Dictionary data structure with flexible sort capabilities
 
 ## <a name="sortable-map#sorting">Sorting</a>
 
- By default `map.findAll()` returns the map sorted by key ascending. If your values are objects, pass a property name (`findAll('sortOrder)`) for finer sorting:
+ By default `findAll()` returns the map sorted by key ascending. If your values are objects, pass a property name (`findAll('sortOrder)`) for finer sorting:
 
     map.add('abc', { sortOrder: 20 });
     map.add('xyz', { sortOrder: 0 });

@@ -8,19 +8,27 @@
 
 Dictionary data structure with flexible sort capabilities
 
-## Installation
+- [Installation](#installation)
+- [Example](#example)
+- [Sorting](#sorting)
+- [Iterators](#iterators)
+
+## <a name="sortable-map#installation">Installation</a>
 `npm i -S sortable-map`
 
 #### Usage
 * `import SortableMap from 'sortable-map';`
 * `const SortableMap = require('sortable-map');`
 
-
-## Example
+## <a name="sortable-map#example">Example</a>
 
     const map = new SortableMap();
-    map.add('foo', 'bar');
-
+    
+    const key = 'foo'       // Key must be a string literal
+    const value = 'bar;     // Value can be anything
+    
+    map.add(key, value);
+    
     map.has('foo');         // true
     map.find('foo');        // 'bar'
     map.findAll();          // [{ key: 'foo', value: 'bar' }]
@@ -40,7 +48,18 @@ Dictionary data structure with flexible sort capabilities
     map.clear();
     map.count();            // 0
 
-## Iterators
+## <a name="sortable-map#sorting">Sorting</a>
+
+ By default `map.findAll()` returns the map sorted by key ascending. If your values are objects, pass a property name (`findAll('sortOrder)`) for finer sorting:
+
+    map.add('abc', { sortOrder: 20 });
+    map.add('xyz', { sortOrder: 0 });
+    map.add('nop', { sortOrder: 10 });
+    
+    map.findAll()               // [{key: 'abc', value: { sortOrder: 20 }, ...];
+    map.findAll('sortOrder')    // [{key: 'xyz', value: { sortOrder: 0 }, ...];
+
+## <a name="sortable-map#iterators">Iterators</a>
 
     const map = new SortableMap();
     map.add('foo', 'bar');

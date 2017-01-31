@@ -28,6 +28,7 @@ Dictionary data structure with flexible sort capabilities
     map.count();            // 1
     may.keys();             // [ 'foo' ]
     may.values();           // [ 'bar' ]
+    
     map.has('baz');         // false
     map.find('baz');        // undefined
 
